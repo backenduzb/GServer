@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  gservice:
+    build: .
+    container_name: gservice-server
+    ports:
+      - "5555:5555"
+    restart: unless-stopped
+    environment:
+      - RUST_LOG=info
