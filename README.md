@@ -9,11 +9,11 @@ git clone https://github.com/backenduzb/GServer.git
 ```
 - Run project locally
 ```bash
-cargo run
+coming soon ... 
 ```
 
 # Developing ToDo
- - [x] TCP services
- - [x] Movement cordinates
+ - [x] UDB services
+ - [x] Authorization & states 
+ - [ ] Movement cordinates
  - [ ] Rooms
- - [ ] Authorization & states 
