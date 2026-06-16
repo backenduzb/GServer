@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"app/internal/services"
+	"app/internal/services/auth"
 	"github.com/gin-gonic/gin"
+	"app/internal/services/responses"
 )
 
 func Profile(c *gin.Context) {
@@ -15,7 +16,7 @@ func Profile(c *gin.Context) {
 		return
 	}
 
-	user, err := services.GetUserByID(userID.(uint))
+	user, err := auth.GetUserByID(userID.(uint))
 	if err != nil {
 		c.JSON(404, gin.H{
 			"error": "User was INVALID",
@@ -23,9 +24,5 @@ func Profile(c *gin.Context) {
 		return
 	}
 	
-	c.JSON(200, gin.H{
-		"id": user.ID,
-		"username": user.Username,
-		"created_at": user.CreatedAt,
-	})
+	c.JSON(200, responses.NewProfileResponse(user))
 }

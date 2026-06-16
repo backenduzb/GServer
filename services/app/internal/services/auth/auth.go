@@ -1,35 +1,21 @@
-package services
+package auth
 
 import (
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"app/internal/database"
 	"app/internal/models"
-	"app/config/settings"
-	"github.com/golang-jwt/jwt/v5"
-	"time"
 )
 
 func GetUserByID(userID uint) (models.User, error) {
 	var user models.User
 
-	result := database.DB.First(&user, userID)
-	if result.Error != nil {
-		return user, result.Error
+	error := database.DB.Preload("Position").First(&user, userID).Error
+	if error != nil {
+		return user, error
 	}
 
 	return user, nil
-}
-
-func GenerateJWT(userID uint) (string, error) {
-	claims :=  jwt.MapClaims{
-		"user_id": userID,
-		"exp": time.Now().Add(24 * time.Hour).Unix(),
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	return token.SignedString([]byte(settings.Envs.JWT_SECRET))
 }
 
 func HashPassword(password string) (string, error) {

@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"app/internal/handlers/auth"
-	"app/internal/middleware"
+	"app/internal/middleware/auth"
 )
 
 func SetupAuthRoutes(r *gin.Engine) {
@@ -13,7 +13,7 @@ func SetupAuthRoutes(r *gin.Engine) {
 	api.POST("/login", handlers.Login)
 
 	api.GET("/me",
-		middleware.AuthMiddleware(),
+		auth.AuthMiddleware(),
 		handlers.Profile,
 	)
 }

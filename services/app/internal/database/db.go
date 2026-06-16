@@ -16,6 +16,9 @@ func Connect(dsn string) {
 		log.Fatal("DB connections error", err)
 	}
 
-	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(
+		&models.User{},
+		&models.Position{},
+	)
 	DB = db
 }
