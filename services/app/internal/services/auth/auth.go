@@ -38,7 +38,14 @@ func CreateUser(username, password string) error {
 		Username: username,
 		Password: hash,
 	}
-	return database.DB.Create(&user).Error
+
+	if err := database.DB.Create(&user).Error; err != nil {
+		return err
+	}
+
+	return database.DB.Create(&models.Position{
+		UserID: user.ID,
+	}).Error
 }
 
 func GetUser(username string) (models.User, error) {

@@ -13,5 +13,6 @@ func main() {
 	
 	database.Connect(settings.Envs.DB_URL)
 	routes.SetupAuthRoutes(router)
+	routes.SetupPositionRoutes(router)
 	router.Run(settings.Envs.PORT)
 }
