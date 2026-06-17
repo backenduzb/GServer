@@ -5,3 +5,10 @@ type UpdatePositionResponse struct {
 	Y float64 `json:"y" binding:"required"`
 	Z float64 `json:"z" binding:"required"`
 }
+
+type InternalUpdatePositionRequest struct {
+	UserID uint    `json:"user_id" binding:"required"`
+	X      float64 `json:"x" binding:"required"`
+	Y      float64 `json:"y" binding:"required"`
+	Z      float64 `json:"z" binding:"required"`
+}

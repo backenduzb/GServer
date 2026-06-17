@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: ../services/app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=yoursupersecretkey
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=game_db
+    depends_on:
+      - db
+    networks:
+      - game-network
+
+  game:
+    build:
+      context: ../services/game
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081/udp"
+    environment:
+      - JWT_SECRET=yoursupersecretkey
+      - GO_APP_URL=http://app:8080
+      - UDP_ADDR=0.0.0.0:8081
+    depends_on:
+      - app
+    networks:
+      - game-network
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=game_db
+    ports:
+      - "5433:5432"
+    networks:
+      - game-network
+
+networks:
+  game-network:
+    driver: bridge

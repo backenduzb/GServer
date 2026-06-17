@@ -13,4 +13,7 @@ func SetupPositionRoutes(r *gin.Engine) {
 		auth.AuthMiddleware(),
 		handlers.UpdatePlayerPosition,
 	)
+
+	// Internal route for Rust service
+	api.PUT("/internal/update", handlers.InternalUpdatePlayerPosition)
 }
