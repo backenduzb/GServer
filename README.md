@@ -15,5 +15,5 @@ coming soon ...
 # Developing ToDo
  - [x] UDB services
  - [x] Authorization & states 
- - [ ] Movement cordinates
+ - [x] Movement cordinates
  - [ ] Rooms
